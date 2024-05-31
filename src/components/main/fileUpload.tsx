@@ -1,9 +1,15 @@
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 
-export const FileUpload = () => {
-	const [selectedFile, setSelectedFile] = useState<File | null>(null);
+interface fileUploadProps {
+	selectedFile: File | null;
+	setSelectedFile: (file: File) => void;
+}
 
+export const FileUpload = ({
+	selectedFile,
+	setSelectedFile,
+}: fileUploadProps) => {
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files && e.target.files.length > 0) {
 			setSelectedFile(e.target.files[0]);
