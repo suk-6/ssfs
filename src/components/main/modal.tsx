@@ -2,8 +2,12 @@
 
 import { useState } from "react";
 import { FileUpload } from "./fileUpload";
+import { UploadStatus } from "@/misc/uploadStatus";
 
 export const MainModal = () => {
+	const [uploadStatus, setUploadStatus] = useState<UploadStatus>(
+		UploadStatus.Idle
+	);
 	const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
 	const uploadFile = async () => {
@@ -16,6 +20,9 @@ export const MainModal = () => {
 			alert("비밀번호를 입력하세요.");
 			return;
 		}
+
+		// Uploading Start
+		setUploadStatus(UploadStatus.Uploading);
 
 		console.log(selectedFile.name, selectedFile.size, selectedFile.type);
 	};
