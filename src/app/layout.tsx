@@ -7,6 +7,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
 	title: "SSFS",
 	description: "Serverless Simple File Storage",
+	icons: {
+		icon: "/file.png",
+	},
 };
 
 export default function RootLayout({
