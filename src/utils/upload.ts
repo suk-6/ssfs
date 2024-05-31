@@ -48,6 +48,7 @@ export const uploadFile = async ({
 
 	if (uploadRes.ok) {
 		setUploadStatus(UploadStatus.Success);
+		location.href = `${process.env.NEXT_PUBLIC_S3_URL}/${selectedFile.name}`;
 	} else {
 		setUploadStatus(UploadStatus.Error);
 	}
