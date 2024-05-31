@@ -5,5 +5,6 @@ declare namespace NodeJS {
 		S3_ACCESS_KEY: string;
 		S3_SECRET_KEY: string;
 		PASSWORD: string;
+		NEXT_PUBLIC_S3_URL: string;
 	}
 }
