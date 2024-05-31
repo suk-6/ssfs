@@ -4,6 +4,7 @@ import { useState } from "react";
 import { FileUpload } from "./fileUpload";
 import { UploadStatus } from "@/misc/uploadStatus";
 import { uploadFile } from "@/utils/upload";
+import { DotLoader } from "react-spinners";
 
 export const MainModal = () => {
 	const [uploadStatus, setUploadStatus] = useState<UploadStatus>(
@@ -24,21 +25,14 @@ export const MainModal = () => {
 							/>
 						)}
 						{uploadStatus === UploadStatus.Uploading && (
-							<div className=" w-full h-full flex justify-center items-center text-gray-500">
-								업로드 중...
-							</div>
+							<DotLoader color="#afedad" size={50} />
 						)}
-						{uploadStatus === UploadStatus.Success && (
-							<div className=" w-full h-full flex justify-center items-center text-green-500">
-								업로드 성공!
-							</div>
-						)}
-						{uploadStatus === UploadStatus.Error && (
-							<div className=" w-full h-full flex flex-col justify-center items-center text-red-500">
-								<p>업로드 실패!</p>
-								<p>{errorMessage}</p>
-							</div>
-						)}
+						{uploadStatus === UploadStatus.Error &&
+							errorMessage && (
+								<div className=" w-full h-full flex flex-col justify-center items-center text-red-500">
+									<p>{errorMessage}</p>
+								</div>
+							)}
 					</div>
 				</div>
 			</div>
