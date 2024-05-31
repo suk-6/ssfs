@@ -25,7 +25,9 @@ export const uploadFile = async ({
 	// Uploading Start
 	setUploadStatus(UploadStatus.Uploading);
 
-	const res = await fetch(`/api/presigned?filename=${selectedFile.name}`);
+	const res = await fetch(
+		`/api/presigned?filename=${selectedFile.name}&password=${password}`
+	);
 
 	if (!res.ok) {
 		const { error } = (await res.json()) as { error: string };
