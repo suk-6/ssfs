@@ -5,8 +5,13 @@ import { FileUpload } from "./fileUpload";
 import { UploadStatus } from "@/misc/uploadStatus";
 import { uploadFile } from "@/utils/upload";
 import { DotLoader } from "react-spinners";
+import { getData } from "@/utils/data/get";
 
-export const MainModal = () => {
+interface MainModalProps {
+	setS3Data: (data: any) => void;
+}
+
+export const MainModal = ({ setS3Data }: MainModalProps) => {
 	const [uploadStatus, setUploadStatus] = useState<UploadStatus>(
 		UploadStatus.Idle
 	);
@@ -36,17 +41,17 @@ export const MainModal = () => {
 					</div>
 				</div>
 			</div>
-			{selectedFile && uploadStatus === UploadStatus.Idle && (
-				<div className=" w-4/6 h-[60px] flex flex-row gap-3">
-					<div className=" w-full h-full bg-white border flex justify-center items-center">
-						<input
-							id="password"
-							type="password"
-							autoComplete="off"
-							className=" w-11/12 h-8/12 focus:outline-none"
-							placeholder="비밀번호를 입력하세요."
-						/>
-					</div>
+			<div className=" w-4/6 h-[60px] flex flex-row gap-3">
+				<div className=" w-full h-full bg-white border flex justify-center items-center">
+					<input
+						id="password"
+						type="password"
+						autoComplete="off"
+						className=" w-11/12 h-8/12 focus:outline-none"
+						placeholder="비밀번호를 입력하세요."
+					/>
+				</div>
+				{selectedFile && uploadStatus === UploadStatus.Idle ? (
 					<button
 						className=" w-1/4 h-full bg-white hover:bg-gray-100 border text-gray-500 rounded-lg"
 						onClick={() =>
@@ -59,8 +64,19 @@ export const MainModal = () => {
 					>
 						업로드
 					</button>
-				</div>
-			)}
+				) : (
+					<button
+						className=" w-1/4 h-full bg-white hover:bg-gray-100 border text-gray-500 rounded-lg"
+						onClick={() => {
+							getData().then((data) => {
+								setS3Data(data);
+							});
+						}}
+					>
+						파일 목록
+					</button>
+				)}
+			</div>
 		</div>
 	);
 };
