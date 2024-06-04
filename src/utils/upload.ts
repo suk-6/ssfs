@@ -25,18 +25,20 @@ export const uploadFile = async ({
 	// Uploading Start
 	setUploadStatus(UploadStatus.Uploading);
 
-	const res = await fetch(
-		`/api/presigned?filename=${selectedFile.name}&password=${password}`
+	const presignedRes = await fetch(
+		`/api/aws?type=upload&filename=${selectedFile.name}&password=${password}`
 	);
 
-	if (!res.ok) {
-		const { error } = (await res.json()) as { error: string };
+	if (!presignedRes.ok) {
+		const { error } = (await presignedRes.json()) as { error: string };
 		setErrorMessage(error);
 		setUploadStatus(UploadStatus.Error);
 		return;
 	}
 
-	const { presignedUrl } = (await res.json()) as { presignedUrl: string };
+	const { presignedUrl } = (await presignedRes.json()) as {
+		presignedUrl: string;
+	};
 
 	const uploadRes = await fetch(presignedUrl, {
 		method: "PUT",
