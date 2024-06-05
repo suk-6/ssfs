@@ -14,7 +14,8 @@
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18",
-    "react-spinners": "^0.13.8"
+    "react-spinners": "^0.13.8",
+    "tailwind-scrollbar-hide": "^1.1.7"
   },
   "devDependencies": {
     "@types/node": "^20",
