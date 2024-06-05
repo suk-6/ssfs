@@ -18,6 +18,20 @@ export const MainModal = ({ setS3Data }: MainModalProps) => {
 	const [selectedFile, setSelectedFile] = useState<File | null>(null);
 	const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
+	const buttonClick = () => {
+		if (selectedFile && uploadStatus === UploadStatus.Idle) {
+			uploadFile({
+				selectedFile,
+				setUploadStatus,
+				setErrorMessage,
+			});
+		} else {
+			getData().then((data) => {
+				setS3Data(data);
+			});
+		}
+	};
+
 	return (
 		<div className=" w-full h-full flex flex-col items-center justify-center gap-7">
 			<div className=" w-4/6 h-[500px] border border-gray-200 rounded-lg shadow-2xl">
@@ -49,33 +63,19 @@ export const MainModal = ({ setS3Data }: MainModalProps) => {
 						autoComplete="off"
 						className=" w-11/12 h-8/12 focus:outline-none"
 						placeholder="비밀번호를 입력하세요."
+						onKeyDown={(e) => {
+							if (e.key === "Enter") buttonClick();
+						}}
 					/>
 				</div>
-				{selectedFile && uploadStatus === UploadStatus.Idle ? (
-					<button
-						className=" w-1/4 h-full bg-white hover:bg-gray-100 border text-gray-500 rounded-lg"
-						onClick={() =>
-							uploadFile({
-								selectedFile,
-								setUploadStatus,
-								setErrorMessage,
-							})
-						}
-					>
-						업로드
-					</button>
-				) : (
-					<button
-						className=" w-1/4 h-full bg-white hover:bg-gray-100 border text-gray-500 rounded-lg"
-						onClick={() => {
-							getData().then((data) => {
-								setS3Data(data);
-							});
-						}}
-					>
-						파일 목록
-					</button>
-				)}
+				<button
+					className=" w-1/4 h-full bg-white hover:bg-gray-100 border text-gray-500 rounded-lg"
+					onClick={buttonClick}
+				>
+					{selectedFile && uploadStatus === UploadStatus.Idle
+						? "업로드"
+						: "파일 목록"}
+				</button>
 			</div>
 		</div>
 	);
