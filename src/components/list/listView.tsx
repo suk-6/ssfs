@@ -1,16 +1,17 @@
 import { ListObjectsV2Output } from "@aws-sdk/client-s3";
 
 interface ListViewProps {
-	contents: ListObjectsV2Output["Contents"];
+	s3Data: ListObjectsV2Output;
+	setS3Data: (data: any) => void;
 }
 
-export const ListView = ({ contents }: ListViewProps) => {
-	contents = contents!.sort((a, b) =>
+export const ListView = ({ s3Data, setS3Data }: ListViewProps) => {
+	const contents = s3Data["Contents"]!.sort((a, b) =>
 		a.LastModified! > b.LastModified! ? -1 : 1
 	);
 
 	return (
-		<div className=" w-full h-full flex flex-col items-center justify-center gap-7">
+		<div className=" w-full h-full flex flex-col items-center justify-center">
 			<div className=" w-5/6 h-fit border border-gray-200 rounded-lg shadow-2xl overflow-y-scroll scrollbar-hide m-10">
 				<div className=" w-full h-fit flex p-5">
 					<table className=" w-full h-full">
@@ -57,6 +58,14 @@ export const ListView = ({ contents }: ListViewProps) => {
 						</tbody>
 					</table>
 				</div>
+			</div>
+			<div
+				className="w-1/6 h-14 bg-white rounded-xl border border-gray-200 flex items-center justify-center"
+				onClick={() => {
+					setS3Data(null);
+				}}
+			>
+				<span className=" cursor-default">확인</span>
 			</div>
 		</div>
 	);
