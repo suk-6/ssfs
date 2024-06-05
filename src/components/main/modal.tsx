@@ -18,18 +18,17 @@ export const MainModal = ({ setS3Data }: MainModalProps) => {
 	const [selectedFile, setSelectedFile] = useState<File | null>(null);
 	const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-	const buttonClick = () => {
+	const buttonClick = async () => {
 		if (selectedFile && uploadStatus === UploadStatus.Idle) {
-			uploadFile({
+			await uploadFile({
 				selectedFile,
 				setUploadStatus,
 				setErrorMessage,
 			});
-		} else {
-			getData().then((data) => {
-				setS3Data(data);
-			});
 		}
+		getData().then((data) => {
+			setS3Data(data);
+		});
 	};
 
 	return (
