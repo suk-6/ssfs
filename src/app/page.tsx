@@ -11,7 +11,7 @@ export default function Home() {
 	return (
 		<main className=" w-screen h-screen">
 			{s3Data ? (
-				<ListView contents={s3Data.Contents} />
+				<ListView s3Data={s3Data} setS3Data={setS3Data} />
 			) : (
 				<MainModal setS3Data={setS3Data} />
 			)}
