@@ -11,18 +11,18 @@ export const ListView = ({ contents }: ListViewProps) => {
 
 	return (
 		<div className=" w-full h-full flex flex-col items-center justify-center gap-7">
-			<div className=" w-5/6 h-fit border border-gray-200 rounded-lg shadow-2xl overflow-scroll m-10">
+			<div className=" w-5/6 h-fit border border-gray-200 rounded-lg shadow-2xl overflow-y-scroll scrollbar-hide m-10">
 				<div className=" w-full h-fit flex p-5">
 					<table className=" w-full h-full">
 						<thead>
 							<tr className=" w-full h-12 border-b border-gray-200">
-								<th className=" w-1/3 h-full text-left">
+								<th className=" w-1/2 h-full text-left">
 									파일명
 								</th>
-								<th className=" w-1/3 h-full text-right">
+								<th className=" w-2/6 h-full text-right">
 									마지막 수정
 								</th>
-								<th className=" w-1/3 h-full text-right">
+								<th className=" w-1/6 h-full text-right">
 									파일 크기
 								</th>
 							</tr>
@@ -33,7 +33,7 @@ export const ListView = ({ contents }: ListViewProps) => {
 									key={content.Key}
 									className=" w-full h-10 border-b border-gray-200"
 								>
-									<td className=" w-1/3 h-full text-left">
+									<td className=" w-1/2 h-full text-left">
 										<a
 											href={`${process.env.NEXT_PUBLIC_S3_URL}/${content.Key}`}
 											target="_blank"
@@ -41,12 +41,12 @@ export const ListView = ({ contents }: ListViewProps) => {
 											{decodeURIComponent(content.Key!)}
 										</a>
 									</td>
-									<td className=" w-1/3 h-full text-right">
+									<td className=" w-2/6 h-full text-right">
 										{new Date(
 											content.LastModified!
 										).toLocaleString()}
 									</td>
-									<td className=" w-1/3 h-full text-right">
+									<td className=" w-1/6 h-full text-right">
 										{(content.Size! / 1024 / 1024).toFixed(
 											1
 										)}{" "}
